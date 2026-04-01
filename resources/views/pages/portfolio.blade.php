@@ -83,8 +83,8 @@
             {{-- Card B: Projects count (top middle) --}}
             <div class="bento-card bento-stat">
                 <p class="bento-label">Projects Built</p>
-                <div class="stat-number" data-count="3">0+</div>
-                <p class="stat-sub">HRMS/ERP, Face Recognition Attendance & Arduino Reminder</p>
+                <div class="stat-number" data-count="17">0+</div>
+                <p class="stat-sub">ERP Modules, CRM Systems, HRMS & More</p>
                 <div class="bento-glow"></div>
             </div>
 
@@ -92,11 +92,11 @@
             <div class="bento-card bento-exp">
                 <p class="bento-label">Experience</p>
                 <div class="stat-number" data-count="1">0+</div>
-                <p class="stat-sub">Year at TeraMed Technologies — UI/UX & Laravel</p>
+                <p class="stat-sub">Year in Enterprise Web Development — UI/UX & Laravel</p>
                 <div class="exp-bar-wrap">
                     <div class="exp-bar"><div class="exp-fill" style="width:85%"></div></div>
                     <span class="exp-tag">Figma / UI·UX</span>
-                    <div class="exp-bar"><div class="exp-fill" style="width:80%"></div></div>
+                    <div class="exp-bar"><div class="exp-fill" style="width:90%"></div></div>
                     <span class="exp-tag">Laravel / PHP</span>
                     <div class="exp-bar"><div class="exp-fill" style="width:70%"></div></div>
                     <span class="exp-tag">Blender / Illustrator</span>
@@ -200,8 +200,8 @@
             {{-- Card B: Illustrator projects count --}}
             <div class="bento-card bento-stat">
                 <p class="bento-label">Design Works</p>
-                <div class="stat-number" data-count="2">0+</div>
-                <p class="stat-sub">TeraMed Academy UI & HRMS dashboard designed in Figma</p>
+                <div class="stat-number" data-count="10">0+</div>
+                <p class="stat-sub">Enterprise Dashboard UIs, Mobile Apps & Creative Designs</p>
                 <div class="bento-glow"></div>
             </div>
 

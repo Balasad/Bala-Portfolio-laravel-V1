@@ -7,29 +7,29 @@
     <div class="nebula" style="right: -100px; top: 0;"></div>
 
     <div class="hero-text">
-        <p class="eyebrow anim-fade" style="--d:0.1s">UI/UX Designer · Laravel Developer · Creative Designer</p>
-        <h1 class="anim-fade" style="--d:0.25s">Hi, I'm <span class="name">Balasaravanan S</span></h1>
-        <p class="hero-desc anim-fade" style="--d:0.4s">UI/UX Designer and Web Developer based in Chennai — designing intuitive interfaces in Figma, building responsive apps with Laravel, and crafting immersive visuals in Blender & Illustrator.</p>
-        <div class="hero-meta anim-fade" style="--d:0.55s">
+        <p class="eyebrow anim-fade" style="--d:0.1s" data-aos="fade-up">UI/UX Designer · Laravel Developer · Creative Designer</p>
+        <h1 class="anim-fade" style="--d:0.25s" data-aos="fade-up" data-aos-delay="100">Hi, I'm <span class="name">Balasaravanan S</span></h1>
+        <p class="hero-desc anim-fade" style="--d:0.4s" data-aos="fade-up" data-aos-delay="200">UI/UX Designer and Web Developer based in Chennai — designing intuitive interfaces in Figma, building responsive apps with Laravel, and crafting immersive visuals in Blender & Illustrator.</p>
+        <div class="hero-meta anim-fade" style="--d:0.55s" data-aos="fade-up" data-aos-delay="300">
             <span class="meta-chip">📍 Chennai, India</span>
-            <span class="meta-chip">💼 TeraMed Technologies</span>
+            <span class="meta-chip">💼 Available for Work</span>
             <span class="meta-chip">🎓 B.E. CSE</span>
         </div>
-        <div class="hero-actions anim-fade" style="--d:0.7s">
-            <button class="btn">View My Work</button>
+        <div class="hero-actions anim-fade" style="--d:0.7s" data-aos="fade-up" data-aos-delay="400">
+            <a href="#work" class="btn">View My Work</a>
             <a href="{{ asset('Bala_Saravanan_Resume.pdf') }}" download class="btn-outline">Download CV</a>
         </div>
     </div>
 
-    <div class="hero-image anim-slide-right">
+    <div class="hero-image anim-slide-right" data-aos="fade-left" data-aos-delay="200">
         <img src="{{ asset('images/profile.png') }}" alt="Balasaravanan S — Profile"  loading="eager" fetchpriority="high" decoding="async">
     </div>
 </section>
 
 {{-- ── Portfolio / Arc Section ── --}}
-<section class="portfolio" id="work">
-    <p class="section-label">Selected Works</p>
-    <h2>Featured Projects</h2>
+<section class="portfolio" id="work" data-aos="fade-up">
+    <p class="section-label" data-aos="fade-up" data-aos-delay="100">Selected Works</p>
+    <h2 data-aos="fade-up" data-aos-delay="150">Featured Projects</h2>
 
     <div class="arc-section">
         <div class="arc-card">
@@ -43,33 +43,35 @@
 </section>
 
 {{-- ── Experience Section ── --}}
-<section class="experience" id="experience">
-    <p class="section-label">Professional Experience</p>
-    <h2>Currently Building</h2>
+<section class="experience" id="experience" data-aos="fade-up">
+    <p class="section-label" data-aos="fade-up" data-aos-delay="100">Professional Experience</p>
+    <h2 data-aos="fade-up" data-aos-delay="150">Currently Building</h2>
 
     <div class="exp-timeline">
-        <div class="exp-card active reveal-card">
+        <div class="exp-card active reveal-card" data-aos="fade-up" data-aos-delay="200">
             <div class="exp-glow"></div>
             <div class="exp-header">
                 <div class="exp-title">
                     <h3>Laravel Developer (ERP Specialist)</h3>
-                    <span class="company">TeraMed Technologies</span>
+                    <span class="company">Enterprise Solutions</span>
                 </div>
                 <div class="exp-date">March 2026 — Present</div>
             </div>
             <div class="exp-body">
-                <p>Leading the development of <strong>RMD ERP (CEASER)</strong>, a massive enterprise resource planning system using <strong>Laravel 12</strong> and <strong>PHP 8.2</strong>.</p>
+                <p>Building comprehensive <strong>Enterprise Resource Planning</strong> systems using <strong>Laravel 12</strong> and <strong>PHP 8.2</strong> — architecting scalable solutions for businesses of all sizes.</p>
                 <ul>
-                    <li>Architected complex modules: Inventory Management, Expense Claims, and Travel Requests.</li>
-                    <li>Implemented high-performance notification systems using <strong>Redis</strong> and <strong>MariaDB</strong>.</li>
-                    <li>Developed automated stock deduction (FEFO) and real-time inventory movement tracking.</li>
+                    <li>Developed <strong>17 integrated modules</strong>: CRM Pipeline, HR Management, Inventory, Finance, Support Tickets, and Vendor Management.</li>
+                    <li>Built drag-and-drop <strong>Kanban pipeline</strong> for sales automation with real-time stage updates.</li>
+                    <li>Implemented <strong>multi-tenancy architecture</strong> with role-based access control for 26+ organizations.</li>
+                    <li>Created <strong>90+ RESTful controllers</strong> and <strong>400+ API routes</strong> with optimized database queries.</li>
                 </ul>
                 <div class="badge-row">
                     <span class="badge">Laravel 12</span>
                     <span class="badge">PHP 8.2</span>
-                    <span class="badge">Redis</span>
-                    <span class="badge">MariaDB</span>
-                    <span class="badge">Vite</span>
+                    <span class="badge">MySQL</span>
+                    <span class="badge">CRM</span>
+                    <span class="badge">Multi-tenancy</span>
+                    <span class="badge">REST API</span>
                 </div>
             </div>
         </div>
@@ -679,8 +681,8 @@
             icon: "{{ asset('icons/figma.png') }}",
             projects: [
                 { img: "{{ asset('images/figma/image_1.png') }}" },
-                { img: "{{ asset('images/figma/image_1 2.png') }}" },
-                { img: "{{ asset('images/figma/image_3.png') }}" },
+                { img: "{{ asset('images/figma/image_12.png') }}" },
+                { img: "{{ asset('images/figma/image_13.png') }}" },
             ]
         },
     ];
@@ -815,6 +817,7 @@
         t.projects.forEach(p => {
             const card = document.createElement('div');
             card.className = 'arc-proj-card';
+            card.setAttribute('data-aos', 'zoom-in');
             const img = document.createElement('img');
             img.src      = p.img;
             img.alt      = t.label + ' project';
@@ -822,6 +825,8 @@
             img.decoding = 'async';
             img.width    = 400;
             img.height   = 200;
+            img.className = 'glightbox';
+            img.setAttribute('data-gallery', t.id);
             card.appendChild(img);
             grid.appendChild(card);
         });
