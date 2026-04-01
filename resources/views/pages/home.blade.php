@@ -22,7 +22,15 @@
     </div>
 
     <div class="hero-image anim-slide-right" data-aos="fade-left" data-aos-delay="200">
-        <img src="{{ asset('images/profile.png') }}" alt="Balasaravanan S — Profile"  loading="eager" fetchpriority="high" decoding="async">
+        <img 
+            src="{{ asset('images/profile.png') }}" 
+            alt="Balasaravanan S — Profile"  
+            loading="eager" 
+            fetchpriority="high" 
+            decoding="async"
+            width="420"
+            height="420"
+        >
     </div>
 </section>
 

@@ -5,20 +5,34 @@
     <meta charset="UTF-8">
     <meta name="description" content="Balasaravanan S — UI/UX Designer & Laravel Developer based in Chennai. Designing intuitive interfaces and building enterprise-grade web applications.">
     <meta name="theme-color" content="#020617">
-    <meta name="color-scheme" content="dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
     <title>Bala Portfolio</title>
+    
     {{-- Preconnect for faster font load --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    {{-- Alpine.js --}}
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    {{-- Vite Assets --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{-- Only load weights actually used: 400,700,900 for Roboto; 700,900 for Condensed --}}
+    
+    {{-- Font optimization - only load used weights --}}
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Roboto+Condensed:wght@700;900&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet"></noscript>
+    
+    {{-- Alpine.js - load after page interactive --}}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    {{-- Critical inline styles for above-the-fold content --}}
+    <style>
+        body{margin:0;font-family:Roboto,sans-serif;background:#020617;color:#fff}
+        .loading-screen{position:fixed;inset:0;background:#020617;display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s}
+        .loading-screen.hidden{opacity:0;pointer-events:none}
+    </style>
+    
+    {{-- Vite Assets --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    {{-- Favicon --}}
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
 
     <style>
 :root {
@@ -91,6 +105,7 @@ body {
     overflow: hidden;
     opacity: 0;
     transition: opacity 0.8s ease;
+    will-change: opacity;
 }
 
 .galaxy-container.active {
@@ -104,13 +119,11 @@ body {
     background-image:
         radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
         radial-gradient(1.5px 1.5px at 40px 70px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 50px 160px, var(--green-light), rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0));
+        radial-gradient(1.5px 1.5px at 50px 160px, var(--green-light), rgba(0,0,0,0));
     background-size: 300px 300px;
-    opacity: 0.3;
-    animation: drift 100s linear infinite;
+    opacity: 0.25;
+    animation: drift 120s linear infinite;
     will-change: transform;
-    contain: strict;
 }
 
 @keyframes drift {
@@ -127,61 +140,47 @@ body {
     overflow: hidden;
     opacity: 0;
     transition: opacity 0.8s ease;
+    will-change: opacity;
 }
 
 .sakura-container.active {
     opacity: 1;
 }
 
-/* Sakura Particles */
+/* Sakura Particles - Optimized */
 .sakura {
     position: absolute;
-    width: 14px;
-    height: 14px;
-    background: radial-gradient(circle, #ffb7c5 0%, #ff91a4 50%, #ff6b8a 100%);
-    border-radius: 50% 0 50% 50%;
-    opacity: 0.85;
-    animation: falling linear infinite;
-    box-shadow: 0 2px 10px rgba(255, 107, 138, 0.3);
-}
-
-.sakura::before,
-.sakura::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: inherit;
-    border-radius: inherit;
-}
-
-.sakura::before {
-    transform: rotate(60deg);
-    top: -3px;
-    left: 3px;
-}
-
-.sakura::after {
-    transform: rotate(-60deg);
-    top: 3px;
-    left: -3px;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, #ffb7c5 0%, #ff91a4 100%);
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: falling 12s linear forwards;
+    transform: translateZ(0);
 }
 
 @keyframes falling {
     0% {
-        transform: translateY(-100px) rotate(0deg) translateX(0);
+        transform: translateY(-20px) translateX(0);
         opacity: 0;
     }
     10% {
-        opacity: 0.85;
+        opacity: 0.7;
     }
     90% {
-        opacity: 0.85;
+        opacity: 0.7;
     }
     100% {
-        transform: translateY(100vh) rotate(720deg) translateX(100px);
+        transform: translateY(100vh) translateX(50px);
         opacity: 0;
     }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .sakura { animation: none; opacity: 0; }
+    .starfield { animation: none; }
+    .nebula { animation: none; }
 }
 
 /* ── Nebula Glow ── */
@@ -556,6 +555,14 @@ h2 {
 </style>
 </head>
 <body :class="{ 'dark-mode': darkMode }" x-cloak>
+    {{-- Loading Screen --}}
+    <div class="loading-screen" id="loading-screen">
+        <div style="text-align:center">
+            <div style="font-size:48px;margin-bottom:16px">🚀</div>
+            <div style="color:#4ade80;font-weight:700">Loading...</div>
+        </div>
+    </div>
+    
     <div class="galaxy-container" :class="{ 'active': darkMode }">
         <div class="starfield"></div>
     </div>
@@ -628,6 +635,17 @@ h2 {
     </footer>
 
     <script>
+    // Remove loading screen
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loading-screen');
+        if (loader) {
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                setTimeout(() => loader.remove(), 500);
+            }, 300);
+        }
+    });
+    
     function toggleDrawer() {
         const drawer = document.getElementById('mobile-drawer');
         const burger  = document.getElementById('hamburger');
@@ -639,74 +657,66 @@ h2 {
         document.getElementById('hamburger').classList.remove('open');
     }
     
-    // Sakura Effect
+    // Sakura Effect - Optimized
+    let sakuraActive = false;
+    let sakuraInterval = null;
+    
     function createSakura() {
         const container = document.getElementById('sakura-container');
-        if (!container) return;
+        if (!container || document.body.classList.contains('dark-mode')) return;
         
-        const petalCount = 25;
+        // Limit particles for performance
+        if (container.children.length > 15) return;
         
-        for (let i = 0; i < petalCount; i++) {
-            setTimeout(() => {
-                if (document.body.classList.contains('dark-mode')) return;
-                
-                const petal = document.createElement('div');
-                petal.className = 'sakura';
-                petal.style.left = Math.random() * 100 + '%';
-                petal.style.animationDuration = (Math.random() * 5 + 8) + 's';
-                petal.style.animationDelay = '0s';
-                petal.style.opacity = Math.random() * 0.5 + 0.4;
-                petal.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
-                petal.style.width = (Math.random() * 8 + 8) + 'px';
-                petal.style.height = (Math.random() * 8 + 8) + 'px';
-                
-                container.appendChild(petal);
-                
-                setTimeout(() => petal.remove(), 15000);
-            }, i * 500);
-        }
+        const petal = document.createElement('div');
+        petal.className = 'sakura';
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.animationDuration = (Math.random() * 6 + 8) + 's';
+        petal.style.opacity = Math.random() * 0.4 + 0.4;
+        petal.style.width = (Math.random() * 6 + 10) + 'px';
+        petal.style.height = petal.style.width;
         
-        // Continuous petals
-        setInterval(() => {
-            if (document.body.classList.contains('dark-mode')) return;
-            
-            const petal = document.createElement('div');
-            petal.className = 'sakura';
-            petal.style.left = Math.random() * 100 + '%';
-            petal.style.animationDuration = (Math.random() * 5 + 8) + 's';
-            petal.style.opacity = Math.random() * 0.5 + 0.4;
-            petal.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
-            petal.style.width = (Math.random() * 8 + 8) + 'px';
-            petal.style.height = (Math.random() * 8 + 8) + 'px';
-            
-            container.appendChild(petal);
-            
-            setTimeout(() => petal.remove(), 15000);
-        }, 2000);
+        container.appendChild(petal);
+        
+        setTimeout(() => petal.remove(), 14000);
     }
     
-    // Watch for dark mode changes
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('themeWatcher', () => ({
-            darkMode: localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
-            init() {
-                this.$watch('darkMode', (value) => {
-                    localStorage.setItem('darkMode', value);
-                    if (!value) {
-                        setTimeout(createSakura, 500);
-                    }
-                });
-                if (!this.darkMode) {
-                    setTimeout(createSakura, 1000);
+    function startSakura() {
+        if (sakuraActive) return;
+        sakuraActive = true;
+        createSakura();
+        createSakura();
+        createSakura();
+        sakuraInterval = setInterval(createSakura, 3000);
+    }
+    
+    function stopSakura() {
+        sakuraActive = false;
+        if (sakuraInterval) {
+            clearInterval(sakuraInterval);
+            sakuraInterval = null;
+        }
+    }
+    
+    // Initial check
+    if (!document.body.classList.contains('dark-mode')) {
+        startSakura();
+    }
+    
+    // Watch for theme changes
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'class') {
+                if (document.body.classList.contains('dark-mode')) {
+                    stopSakura();
+                } else {
+                    startSakura();
                 }
             }
-        }));
+        });
     });
     
-    // Start sakura if light mode on load
-    if (!document.body.classList.contains('dark-mode')) {
-        setTimeout(createSakura, 1000);
-    }
+    observer.observe(document.body, { attributes: true });
     </script>
 </body>
 </html>

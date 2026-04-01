@@ -15,4 +15,24 @@ export default defineConfig({
             ignored: ['**/storage/framework/views/**'],
         },
     },
+    build: {
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true,
+            },
+        },
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    'aos': ['aos'],
+                    'glightbox': ['glightbox'],
+                },
+            },
+        },
+        cssMinify: true,
+        reportCompressedSize: true,
+        chunkSizeWarningLimit: 500,
+    },
 });

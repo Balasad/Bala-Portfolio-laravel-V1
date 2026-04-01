@@ -6,17 +6,20 @@ import 'aos/dist/aos.css';
 import 'glightbox/dist/css/glightbox.min.css';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // AOS - Optimized settings
     AOS.init({
-        duration: 800,
-        easing: 'ease-out-cubic',
+        duration: 600,
+        easing: 'ease-out',
         once: true,
-        offset: 80,
+        offset: 50,
+        disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     });
 
+    // GLightbox - Lazy load
     GLightbox({
         touchNavigation: true,
         loop: true,
-        autoplayVideos: true,
+        autoplayVideos: false,
         selector: '.glightbox',
         skin: 'clean',
     });

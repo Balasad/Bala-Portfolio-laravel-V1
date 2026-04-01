@@ -1,6 +1,14 @@
 {
+  "_aos-CUKd2wZl.js": {
+    "file": "assets/aos-CUKd2wZl.js",
+    "name": "aos"
+  },
+  "_glightbox-Uz7Nk9Ct.js": {
+    "file": "assets/glightbox-Uz7Nk9Ct.js",
+    "name": "glightbox"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-DHvg818W.css",
+    "file": "assets/app-CIjvPssl.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -9,10 +17,14 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-BVWZNmzb.js",
+    "file": "assets/app-pSATqBqx.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
+    "imports": [
+      "_aos-CUKd2wZl.js",
+      "_glightbox-Uz7Nk9Ct.js"
+    ],
     "css": [
       "assets/app-DH3Jickd.css"
     ]
