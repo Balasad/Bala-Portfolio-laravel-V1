@@ -19,9 +19,18 @@
             Laravel, and crafting immersive visuals in Blender & Illustrator.
         </p>
         <div class="hero-meta">
-            <span class="meta-chip">📍 Chennai, India</span>
-            <span class="meta-chip">💼 TeraMed Technologies</span>
-            <span class="meta-chip">🎓 B.E. CSE</span>
+            <span class="meta-chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Chennai, India
+            </span>
+            <span class="meta-chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                TeraMed Technologies
+            </span>
+            <span class="meta-chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                B.E. CSE
+            </span>
         </div>
         <div class="hero-actions">
             <button class="btn">View My Work</button>
@@ -42,8 +51,14 @@
 
     {{-- Tabs --}}
     <div class="tabs">
-        <button class="tab-btn active" data-tab="blender">🎬 Blender</button>
-        <button class="tab-btn" data-tab="illustrator">🎨 Illustrator</button>
+        <button class="tab-btn active" data-tab="blender">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+            Blender
+        </button>
+        <button class="tab-btn" data-tab="illustrator">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+            Illustrator
+        </button>
     </div>
 
     {{-- ── Blender Tab ─────────────────────── --}}
@@ -552,6 +567,49 @@
     .bento-video,
     .bento-video-sm { grid-column: 1; grid-row: auto; }
     .bento-video { height: 220px; }
+}
+
+/* ── Light Theme Overrides ─────────────────── */
+body:not(.dark-mode) .bento-card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+body:not(.dark-mode) .logo-chip {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: var(--text);
+}
+
+body:not(.dark-mode) .logo-chip:hover {
+    background: var(--green-dim);
+    border-color: var(--green);
+    color: var(--green);
+}
+
+body:not(.dark-mode) .tab-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--text);
+}
+
+body:not(.dark-mode) .tab-btn.active {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+}
+
+body:not(.dark-mode) .exp-bar {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+body:not(.dark-mode) .portfolio-grid {
+    background: transparent;
+}
+
+body:not(.dark-mode) .proj-overlay {
+    background: linear-gradient(to top, rgba(255,255,255,0.95) 55%, transparent);
 }
 </style>
 

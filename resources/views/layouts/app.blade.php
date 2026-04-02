@@ -1,6 +1,6 @@
 {{-- resources/views/layouts/app.blade.php --}}
 <!DOCTYPE html>
-<html lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches) }" x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))">
+<html lang="en" x-data :class="{ 'dark-mode': $store.theme.dark }">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Balasaravanan S — UI/UX Designer & Laravel Developer based in Chennai. Designing intuitive interfaces and building enterprise-grade web applications.">
@@ -18,8 +18,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet"></noscript>
     
-    {{-- Alpine.js - load after page interactive --}}
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {{-- Livewire Styles --}}
+    @livewireStyles
+    {{-- Blade UI Kit Styles --}}
+    @bukStyles(true)
     
     {{-- Critical inline styles for above-the-fold content --}}
     <style>
@@ -32,10 +34,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     {{-- Favicon --}}
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234ade80' stroke-width='2'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/><circle cx='12' cy='7' r='4'/></svg>">
 
     <style>
-:root {
+ :root {
     --green:        #22c55e;
     --green-light:  #4ade80;
     --green-dim:    rgba(34,197,94,0.15);
@@ -43,6 +45,7 @@
     --bg:           #020617;
     --bg-card:      rgba(15, 23, 42, 0.6);
     --surface:      rgba(255,255,255,0.04);
+    --surface-hover: rgba(255,255,255,0.08);
     --border:       rgba(255,255,255,0.08);
     --text:         #ffffff;
     --text-muted:   #94a3b8;
@@ -56,31 +59,33 @@
 
 /* Light Theme Variables */
 body:not(.dark-mode) {
-    --bg:           #fef9f3;
-    --bg-card:      rgba(255, 255, 255, 0.85);
-    --surface:      rgba(24, 24, 24, 0.6);
-    --border:       rgba(0,0,0,0.1);
-    --text:         #1a1a2e;
-    --text-muted:   #090a0a;
     --green:        #ec4899;
     --green-light:  #f472b6;
     --green-dim:    rgba(236, 72, 153, 0.15);
     --green-glow:   rgba(236, 72, 153, 0.4);
+    --bg:           #fef9f3;
+    --bg-card:      rgba(255, 255, 255, 0.9);
+    --surface:      rgba(0, 0, 0, 0.04);
+    --surface-hover: rgba(0, 0, 0, 0.08);
+    --border:       rgba(0, 0, 0, 0.08);
+    --text:         #1a1a2e;
+    --text-muted:   #6b7280;
     --shadow:       0 4px 20px rgba(0,0,0,0.08);
 }
 
 /* Dark Theme Variables */
 body.dark-mode {
-    --bg:           #020617;
-    --bg-card:      rgba(15, 23, 42, 0.6);
-    --surface:      rgba(255,255,255,0.04);
-    --border:       rgba(255,255,255,0.08);
-    --text:         #ffffff;
-    --text-muted:   #94a3b8;
     --green:        #22c55e;
     --green-light:  #4ade80;
     --green-dim:    rgba(34,197,94,0.15);
     --green-glow:   rgba(34,197,94,0.35);
+    --bg:           #020617;
+    --bg-card:      rgba(15, 23, 42, 0.6);
+    --surface:      rgba(255,255,255,0.04);
+    --surface-hover: rgba(255,255,255,0.08);
+    --border:       rgba(255,255,255,0.08);
+    --text:         #ffffff;
+    --text-muted:   #94a3b8;
     --shadow:       0 4px 20px rgba(0,0,0,0.3);
 }
 
@@ -94,6 +99,40 @@ body {
     color: var(--text);
     overflow-x: hidden;
     transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+}
+
+/* Selection color */
+::selection {
+    background: var(--green);
+    color: #fff;
+}
+
+/* Page load animation */
+.page-content {
+    animation: pageFadeIn 0.6s ease-out;
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Prevent layout shift on images */
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* ── Galaxy Background (Dark) ── */
@@ -141,6 +180,10 @@ body {
     opacity: 0;
     transition: opacity 0.8s ease;
     will-change: opacity;
+}
+
+.sakura-container.active {
+    opacity: 1;
 }
 
 .sakura-container.active {
@@ -221,6 +264,11 @@ body {
     transition: background 0.5s ease, border-color 0.5s ease;
 }
 
+body:not(.dark-mode) .navbar {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
 .navbar-brand {
     font-family: var(--font-display);
     font-weight: 800;
@@ -248,8 +296,20 @@ body {
     color: var(--text-muted);
     text-decoration: none;
     transition: color 0.3s;
+    position: relative;
 }
 .nav-links a:hover { color: var(--green-light); }
+.nav-links a.active { color: var(--green-light); }
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--green);
+    border-radius: 2px;
+}
 
 /* Hamburger */
 .nav-hamburger {
@@ -517,6 +577,10 @@ h2 {
     transition: all 0.3s;
 }
 
+body:not(.dark-mode) .footer-social a {
+    background: rgba(0, 0, 0, 0.04);
+}
+
 .footer-social a:hover {
     background: var(--green-dim);
     border-color: var(--green);
@@ -552,22 +616,108 @@ h2 {
     }
 }
 
+/* ── Scroll Progress Bar ── */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--green), var(--green-light));
+    z-index: 9999;
+    transition: width 0.1s linear;
+}
+
+/* ── Back to Top Button ── */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    color: var(--green);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--green);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px var(--green-glow);
+}
+
+body:not(.dark-mode) .back-to-top {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+body:not(.dark-mode) .back-to-top:hover {
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3);
+}
+
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 42px;
+        height: 42px;
+    }
+}
+
 </style>
 </head>
-<body :class="{ 'dark-mode': darkMode }" x-cloak>
+<body>
+    {{-- Set dark mode class immediately to prevent FOUC --}}
+    <script>
+        document.body.classList.add('dark-mode');
+    </script>
+    
     {{-- Loading Screen --}}
     <div class="loading-screen" id="loading-screen">
         <div style="text-align:center">
-            <div style="font-size:48px;margin-bottom:16px">🚀</div>
+            <div style="margin-bottom:16px">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+            </div>
             <div style="color:#4ade80;font-weight:700">Loading...</div>
         </div>
     </div>
     
-    <div class="galaxy-container" :class="{ 'active': darkMode }">
+    {{-- Galaxy (Dark Mode Background) --}}
+    <div class="galaxy-container" id="galaxy-bg">
         <div class="starfield"></div>
     </div>
     
-    <div class="sakura-container" :class="{ 'active': !darkMode }" id="sakura-container"></div>
+    {{-- Sakura (Light Mode Background) --}}
+    <div class="sakura-container" id="sakura-container"></div>
+
+    {{-- Scroll Progress Bar --}}
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    {{-- Back to Top Button --}}
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
 
     {{-- Mobile Drawer --}}
     <div class="mobile-drawer" id="mobile-drawer">
@@ -595,15 +745,17 @@ h2 {
 
         <button 
             class="theme-toggle" 
-            @click="darkMode = !darkMode"
-            :aria-label="darkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+            @click="$store.theme.toggle()"
+            :aria-label="$store.theme.dark ? 'Switch to light mode' : 'Switch to dark mode'"
         >
-            <span x-show="darkMode" class="theme-icon">☀️</span>
-            <span x-show="!darkMode" class="theme-icon">🌙</span>
+            <span x-show="$store.theme.dark" class="theme-icon">☀️</span>
+            <span x-show="!$store.theme.dark" class="theme-icon">🌙</span>
         </button>
     </nav>
 
-    @yield('content')
+    <main class="page-content">
+        @yield('content')
+    </main>
 
     {{-- Footer --}}
     <footer class="footer">
@@ -618,13 +770,13 @@ h2 {
                 <a href="{{ route('contact') }}">Contact</a>
             </div>
             <div class="footer-social">
-                <a href="https://linkedin.com/in/balasaravanan-s-366365235" aria-label="LinkedIn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <a href="https://linkedin.com/in/balasaravanan-s-366365235" aria-label="LinkedIn" class="social-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
                 </a>
-                <a href="https://github.com/Balasad" aria-label="GitHub">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <a href="https://github.com/Balasad" aria-label="GitHub" class="social-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
                 </a>
-                <a href="#" aria-label="Twitter">
+                <a href="https://x.com/Balasad_" aria-label="X (Twitter)" class="social-icon">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
             </div>
@@ -657,15 +809,95 @@ h2 {
         document.getElementById('hamburger').classList.remove('open');
     }
     
-    // Sakura Effect - Optimized
+    // Scroll Progress Bar
+    const scrollProgress = document.getElementById('scroll-progress');
+    const backToTop = document.getElementById('back-to-top');
+    
+    function updateScrollUI() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        
+        if (scrollProgress) {
+            scrollProgress.style.width = scrollPercent + '%';
+        }
+        
+        if (backToTop) {
+            if (scrollTop > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+    }
+    
+    window.addEventListener('scroll', updateScrollUI, { passive: true });
+    
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    // Active nav link highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    function updateActiveNav() {
+        const scrollY = window.scrollY + 100;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    
+    // Background Effects - Galaxy (Dark) & Sakura (Light)
     let sakuraActive = false;
     let sakuraInterval = null;
+    
+    function updateBackgroundEffects() {
+        const galaxy = document.getElementById('galaxy-bg');
+        const sakura = document.getElementById('sakura-container');
+        const isDark = document.body.classList.contains('dark-mode');
+        
+        if (galaxy) galaxy.classList.toggle('active', isDark);
+        if (sakura) sakura.classList.toggle('active', !isDark);
+        
+        if (isDark) {
+            stopSakura();
+        } else {
+            startSakura();
+        }
+    }
     
     function createSakura() {
         const container = document.getElementById('sakura-container');
         if (!container || document.body.classList.contains('dark-mode')) return;
         
-        // Limit particles for performance
         if (container.children.length > 15) return;
         
         const petal = document.createElement('div');
@@ -698,25 +930,23 @@ h2 {
         }
     }
     
-    // Initial check
-    if (!document.body.classList.contains('dark-mode')) {
-        startSakura();
-    }
+    // Initial background setup
+    updateBackgroundEffects();
     
     // Watch for theme changes
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             if (mutation.attributeName === 'class') {
-                if (document.body.classList.contains('dark-mode')) {
-                    stopSakura();
-                } else {
-                    startSakura();
-                }
+                updateBackgroundEffects();
             }
         });
     });
     
     observer.observe(document.body, { attributes: true });
     </script>
+    {{-- Livewire Scripts --}}
+    @livewireScripts
+    {{-- Blade UI Kit Scripts --}}
+    @bukScripts(true)
 </body>
 </html>

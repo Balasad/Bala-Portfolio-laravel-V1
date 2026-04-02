@@ -8,7 +8,7 @@
     "name": "glightbox"
   },
   "resources/css/app.css": {
-    "file": "assets/app-CIjvPssl.css",
+    "file": "assets/app-CBAvOnMd.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -17,7 +17,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-pSATqBqx.js",
+    "file": "assets/app-DD2cekHH.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,

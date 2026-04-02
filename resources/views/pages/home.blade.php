@@ -11,9 +11,18 @@
         <h1 class="anim-fade" style="--d:0.25s" data-aos="fade-up" data-aos-delay="100">Hi, I'm <span class="name">Balasaravanan S</span></h1>
         <p class="hero-desc anim-fade" style="--d:0.4s" data-aos="fade-up" data-aos-delay="200">UI/UX Designer and Web Developer based in Chennai — designing intuitive interfaces in Figma, building responsive apps with Laravel, and crafting immersive visuals in Blender & Illustrator.</p>
         <div class="hero-meta anim-fade" style="--d:0.55s" data-aos="fade-up" data-aos-delay="300">
-            <span class="meta-chip">📍 Chennai, India</span>
-            <span class="meta-chip">💼 Available for Work</span>
-            <span class="meta-chip">🎓 B.E. CSE</span>
+            <span class="meta-chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Chennai, India
+            </span>
+            <span class="meta-chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                Available for Work
+            </span>
+            <span class="meta-chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                B.E. CSE
+            </span>
         </div>
         <div class="hero-actions anim-fade" style="--d:0.7s" data-aos="fade-up" data-aos-delay="400">
             <a href="#work" class="btn">View My Work</a>
@@ -30,6 +39,40 @@
             decoding="async"
             
         >
+    </div>
+</section>
+
+{{-- ── Statistics Section ── --}}
+<section class="stats-section" id="stats">
+    <div class="stats-container">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="stat-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <div class="stat-number" data-count="1">0</div>
+            <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <div class="stat-number" data-count="25">0</div>
+            <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="stat-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <div class="stat-number" data-count="15">0</div>
+            <div class="stat-label">Animations and Graphics</div>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+            <div class="stat-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <div class="stat-number" data-count="10">0</div>
+            <div class="stat-label">Technologies</div>
+        </div>
     </div>
 </section>
 
@@ -62,7 +105,7 @@
                     <h3>Laravel Developer (ERP Specialist)</h3>
                     <span class="company">Enterprise Solutions</span>
                 </div>
-                <div class="exp-date">March 2026 — Present</div>
+                <div class="exp-date">March 2025 — Present</div>
             </div>
             <div class="exp-body">
                 <p>Building comprehensive <strong>Enterprise Resource Planning</strong> systems using <strong>Laravel 12</strong> and <strong>PHP 8.2</strong> — architecting scalable solutions for businesses of all sizes.</p>
@@ -87,8 +130,96 @@
 
 <style>
 /* ════════════════════════════════════
+   STATISTICS
+════════════════════════════════════ */
+.stats-section {
+    position: relative;
+    z-index: 1;
+    padding: 40px 80px;
+    content-visibility: auto;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 40px;
+}
+
+body:not(.dark-mode) .stats-container {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+
+.stat-item {
+    text-align: center;
+    padding: 16px;
+    position: relative;
+}
+
+.stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60%;
+    background: var(--border);
+}
+
+.stat-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+    color: var(--green);
+}
+
+.stat-number {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--green-light), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .stats-section {
+        padding: 24px 16px;
+    }
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 24px;
+        gap: 16px;
+    }
+    .stat-item::after {
+        display: none;
+    }
+    .stat-number {
+        font-size: 32px;
+    }
+}
+
+/* ════════════════════════════════════
    HERO
-═══════════════════════════════════ */
+════════════════════════════════════ */
 .hero {
     display: flex;
     align-items: center;
@@ -147,6 +278,10 @@
     white-space: nowrap;
 }
 
+body:not(.dark-mode) .meta-chip {
+    background: rgba(0, 0, 0, 0.04);
+}
+
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
@@ -159,7 +294,7 @@
     border: 2px solid var(--green);
     padding: 9px 24px;
     border-radius: 30px;
-    color: #fff;
+    color: var(--text);
     text-decoration: none;
     font-weight: 700;
     font-size: 13px;
@@ -182,9 +317,9 @@
 
 /* ════════════════════════════════════
    ARC PORTFOLIO
-═══════════════════════════════════ */
+════════════════════════════════════ */
 .arc-card {
-    background: rgba(15, 23, 42, 0.4);
+    background: var(--bg-card);
     backdrop-filter: blur(10px);
     border-radius: 24px;
     border: 1px solid var(--border);
@@ -194,10 +329,16 @@
     contain: layout style;
 }
 
+body:not(.dark-mode) .arc-card {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
 .arc-stage {
     position: relative;
     width: 100%;
     height: 400px;
+    min-height: 400px;
     display: flex;
     justify-content: center;
     touch-action: pan-y;
@@ -219,16 +360,23 @@
 
 .arc-node-bg {
     border-radius: 50%;
-    background: #e5e7eb;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: 0.4s;
+    border: 2px solid rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+body.dark-mode .arc-node-bg {
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
 .arc-node-wrap.active .arc-node-bg {
-    background: #fff;
-    box-shadow: 0 0 25px var(--green-light);
+    background: #ffffff;
+    box-shadow: 0 0 25px var(--green-glow);
     border: 3px solid var(--green);
 }
 
@@ -239,9 +387,14 @@
     transform: translateX(-50%);
     font-size: 11px;
     font-weight: 900;
-    color: rgba(255,255,255,0.3);
+    color: var(--text-muted);
     letter-spacing: 1px;
     white-space: nowrap;
+    text-shadow: none;
+}
+
+body.dark-mode .arc-node-label {
+    color: rgba(255,255,255,0.6);
 }
 
 .arc-proj-grid {
@@ -262,6 +415,12 @@
     border-radius: 20px;
     overflow: hidden;
     border: 1px solid var(--border);
+    background: rgba(255,255,255,0.05);
+}
+
+body:not(.dark-mode) .arc-proj-card {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 .arc-proj-card img {
@@ -278,16 +437,21 @@
 .exp-timeline { display: flex; flex-direction: column; gap: 20px; }
 
 .exp-card {
-    background: rgba(255,255,255,0.02);
+    background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 24px;
     padding: 40px;
     position: relative;
     overflow: hidden;
     transition: border-color 0.4s, transform 0.4s;
-    contain: layout style;     /* isolate card reflows */
+    contain: layout style;
 }
 .exp-card:hover { border-color: var(--green); transform: translateY(-5px); }
+
+body:not(.dark-mode) .exp-card {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
 
 .exp-glow {
     position: absolute;
@@ -324,7 +488,7 @@
     position: relative;
     padding-left: 22px;
     margin-bottom: 10px;
-    color: #cbd5e1;
+    color: var(--text);
     font-size: 15px;
     line-height: 1.6;
 }
@@ -333,12 +497,21 @@
 .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .badge {
     background: var(--green-dim);
-    border: 1px solid rgba(34,197,94,0.2);
-    color: var(--green-light);
+    border: 1px solid var(--green);
+    color: var(--green);
     padding: 5px 12px;
     border-radius: 12px;
     font-size: 11px;
     font-weight: 700;
+}
+
+body:not(.dark-mode) .exp-body li {
+    color: var(--text);
+}
+
+body:not(.dark-mode) .badge {
+    background: var(--green-dim);
+    color: var(--green);
 }
 
 /* ════════════════════════════════════
@@ -706,35 +879,60 @@
     const layer = document.getElementById('nodes-layer');
     const cv    = document.getElementById('arc-cv');
 
-    /* ── Pre-size canvas immediately (before first RAF) so no blank flash ── */
+    /* ── Force layout before drawing ── */
+    function forceLayout() {
+        void stage.offsetWidth;
+        void cv.offsetWidth;
+    }
+
+    /* ── Pre-size canvas after layout is ready ── */
     function primeCanvas() {
+        forceLayout();
         const W = stage.offsetWidth || stage.parentElement.offsetWidth;
         const H = stage.offsetHeight;
-        if (!W || !H) return;
+        if (!W || !H) {
+            requestAnimationFrame(primeCanvas);
+            return;
+        }
         const dpr = window.devicePixelRatio || 1;
         cv.width  = W * dpr;
         cv.height = H * dpr;
         _lastW = W; _lastH = H;
     }
-    primeCanvas();
 
-    /* ── Draw one frame immediately (synchronous, before RAF loop) ── */
-    draw();
-    renderProjects();
-
-    /* ── Then start the RAF loop ── */
-    function animate() {
-        const delta = targetRot - rotation;
-        rotation += delta * 0.1;
-        if (Math.abs(delta) > 0.01 || isDragging) draw();
-        rafID = requestAnimationFrame(animate);
+    /* ── Wait for DOM + images to be ready ── */
+    function init() {
+        forceLayout();
+        primeCanvas();
+        draw();
+        renderProjects();
+        startAnimation();
     }
-    animate();
+
+    if (document.readyState === 'complete') {
+        init();
+    } else {
+        window.addEventListener('load', init, { once: true });
+    }
+
+    /* ── RAF loop ── */
+    function startAnimation() {
+        function animate() {
+            const delta = targetRot - rotation;
+            rotation += delta * 0.1;
+            if (Math.abs(delta) > 0.01 || isDragging) draw();
+            rafID = requestAnimationFrame(animate);
+        }
+        animate();
+    }
 
     function draw() {
         const W   = stage.offsetWidth;
         const H   = stage.offsetHeight;
         const dpr = window.devicePixelRatio || 1;
+
+        /* Skip if stage has no size yet */
+        if (!W || !H || W < 50 || H < 50) return;
 
         if (W !== _lastW || H !== _lastH) {
             cv.width  = W * dpr;
@@ -857,10 +1055,46 @@
 
 /* ════════════════════════════════════
    ANIMATION JS
-═══════════════════════════════════ */
+════════════════════════════════════ */
 (function () {
     /* Run non-critical setup in idle time */
     const idle = window.requestIdleCallback || (cb => setTimeout(cb, 1));
+
+    /* ── Animated Statistics Counters ── */
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counters = entry.target.querySelectorAll('.stat-number[data-count]');
+                counters.forEach(counter => {
+                    const target = parseInt(counter.dataset.count);
+                    const duration = 2000;
+                    const start = performance.now();
+                    
+                    function updateCounter(currentTime) {
+                        const elapsed = currentTime - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const easeOut = 1 - Math.pow(1 - progress, 3);
+                        const current = Math.floor(easeOut * target);
+                        counter.textContent = current + '+';
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target + '+';
+                        }
+                    }
+                    
+                    requestAnimationFrame(updateCounter);
+                });
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    const statsSection = document.getElementById('stats');
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
 
     /* ── Cursor glow — RAF throttled, GPU transform ── */
     const glow = document.createElement('div');
