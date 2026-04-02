@@ -28,8 +28,7 @@
             loading="eager" 
             fetchpriority="high" 
             decoding="async"
-            width="420"
-            height="420"
+            
         >
     </div>
 </section>
