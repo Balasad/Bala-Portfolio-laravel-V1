@@ -1,28 +1,15 @@
 import './bootstrap';
 import AOS from 'aos';
 import GLightbox from 'glightbox';
-import Alpine from 'alpinejs';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
 import 'aos/dist/aos.css';
 import 'glightbox/dist/css/glightbox.min.css';
 
-const isDarkMode = localStorage.getItem('darkMode') === 'true' || !localStorage.getItem('darkMode');
+const isDarkMode = localStorage.getItem('darkMode') !== 'false';
 
 document.body.classList.toggle('dark-mode', isDarkMode);
-
-Alpine.store('theme', {
-    dark: isDarkMode,
-    toggle() {
-        this.dark = !this.dark;
-        localStorage.setItem('darkMode', this.dark);
-        document.body.classList.toggle('dark-mode', this.dark);
-    }
-});
-
-window.Alpine = Alpine;
-Alpine.start();
 
 window.Echo = new Echo({
     broadcaster: 'reverb',

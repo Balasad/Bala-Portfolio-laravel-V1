@@ -128,6 +128,9 @@
     </div>
 </section>
 
+{{-- ── Skills Section (Livewire) ── --}}
+@livewire('skills-section')
+
 <style>
 /* ════════════════════════════════════
    STATISTICS
@@ -370,20 +373,23 @@ body:not(.dark-mode) .arc-card {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 0.4s;
     border: 2px solid rgba(0,0,0,0.1);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 body.dark-mode .arc-node-bg {
     border: 2px solid rgba(255,255,255,0.2);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .arc-node-wrap.active .arc-node-bg {
     background: #ffffff;
-    box-shadow: 0 0 25px var(--green-glow);
+    box-shadow: 0 0 30px var(--green-glow);
     border: 3px solid var(--green);
+}
+
+body.dark-mode .arc-node-wrap.active .arc-node-bg {
+    box-shadow: 0 0 30px var(--green-glow);
 }
 
 .arc-node-label {
@@ -397,10 +403,6 @@ body.dark-mode .arc-node-bg {
     letter-spacing: 1px;
     white-space: nowrap;
     text-shadow: none;
-}
-
-body.dark-mode .arc-node-label {
-    color: rgba(255,255,255,0.6);
 }
 
 .arc-proj-grid {
@@ -845,6 +847,7 @@ body:not(.dark-mode) .badge {
             id: 'ai',
             label: 'Illustrator',
             icon: "{{ asset('icons/illustrator.png') }}",
+            iconPink: "{{ asset('icons/illustrator-pink.png') }}",
             projects: [
                 { img: "{{ asset('images/illustrator/image_1.png') }}" },
                 { img: "{{ asset('images/illustrator/image_2.png') }}" },
@@ -855,6 +858,7 @@ body:not(.dark-mode) .badge {
             id: 'ps',
             label: 'Photoshop',
             icon: "{{ asset('icons/photoshop.png') }}",
+            iconPink: "{{ asset('icons/photoshop-pink.png') }}",
             projects: [
                 { img: "{{ asset('images/photoshop/poster_1.png') }}" },
                 { img: "{{ asset('images/photoshop/poster.png') }}" },
@@ -865,6 +869,7 @@ body:not(.dark-mode) .badge {
             id: 'blender',
             label: 'Blender',
             icon: "{{ asset('icons/blender.png') }}",
+            iconPink: "{{ asset('icons/blender-pink.png') }}",
             projects: [
                 { img: "{{ asset('images/blender/watch.png') }}" },
                 { img: "{{ asset('images/blender/space.png') }}" },
@@ -875,6 +880,7 @@ body:not(.dark-mode) .badge {
             id: 'ae',
             label: 'After Effects',
             icon: "{{ asset('icons/aftereffects.png') }}",
+            iconPink: "{{ asset('icons/after-effects-pink.png') }}",
             projects: [
                 { img: "{{ asset('images/3d.png') }}" },
                 { img: "{{ asset('images/3d.png') }}" },
@@ -885,6 +891,7 @@ body:not(.dark-mode) .badge {
             id: 'figma',
             label: 'Figma',
             icon: "{{ asset('icons/figma.png') }}",
+            iconPink: "{{ asset('icons/figma-pink.png') }}",
             projects: [
                 { img: "{{ asset('images/figma/image_1.png') }}" },
                 { img: "{{ asset('images/figma/image_12.png') }}" },
@@ -992,7 +999,9 @@ body:not(.dark-mode) .badge {
             const bg = document.createElement('div');
             bg.className  = 'arc-node-bg';
             bg.style.width = bg.style.height = nodeSize + 'px';
-            bg.innerHTML  = `<img src="${t.icon}" style="width:65%;height:65%;object-fit:contain;" alt="${t.label}" loading="eager">`;
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const iconSrc = isDarkMode ? t.icon : t.iconPink;
+            bg.innerHTML  = `<img src="${iconSrc}" style="width:65%;height:65%;object-fit:contain;" alt="${t.label}" loading="eager">`;
 
             const lbl = document.createElement('span');
             lbl.className   = 'arc-node-label';
@@ -1010,10 +1019,13 @@ body:not(.dark-mode) .badge {
         /* Arc guide line */
         ctx.beginPath();
         ctx.arc(centerX, centerY, radius, 210 * Math.PI / 180, 330 * Math.PI / 180);
-        ctx.strokeStyle = 'rgba(34,197,94,0.1)';
+        ctx.strokeStyle = 'rgba(34,197,94,0.15)';
         ctx.lineWidth   = 2;
         ctx.stroke();
     }
+
+    /* Initial draw for dark mode (default) */
+    draw();
 
     /* ── Drag / Touch ── */
     const startDrag = (x) => { isDragging = true; lastX = x; };
@@ -1073,6 +1085,24 @@ body:not(.dark-mode) .badge {
         if (resizeRAF) cancelAnimationFrame(resizeRAF);
         resizeRAF = requestAnimationFrame(draw);
     }, { passive: true });
+
+    /* ── Theme change detection ── */
+    let lastThemeState = document.body.classList.contains('dark-mode');
+    
+    function checkThemeChange() {
+        const currentDark = document.body.classList.contains('dark-mode');
+        if (currentDark !== lastThemeState) {
+            lastThemeState = currentDark;
+            draw();
+        }
+    }
+    
+    /* Use MutationObserver for reliable theme change detection */
+    const themeObserver = new MutationObserver(checkThemeChange);
+    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    /* Also poll as fallback for Alpine.js changes */
+    setInterval(checkThemeChange, 200);
 
 })();
 </script>

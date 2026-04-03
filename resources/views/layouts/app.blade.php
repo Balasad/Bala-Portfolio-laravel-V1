@@ -708,7 +708,11 @@ body:not(.dark-mode) .back-to-top:hover {
 <body>
     {{-- Set dark mode class immediately to prevent FOUC --}}
     <script>
-        document.body.classList.add('dark-mode');
+        (function() {
+            const stored = localStorage.getItem('darkMode');
+            const isDark = stored !== 'false';
+            document.body.classList.toggle('dark-mode', isDark);
+        })();
     </script>
     
     {{-- Loading Screen --}}
@@ -808,16 +812,15 @@ body:not(.dark-mode) .back-to-top:hover {
     </footer>
 
     <script>
-    // Remove loading screen
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('loading-screen');
+    // Remove loading screen immediately
+    (function() {
+        var loader = document.getElementById('loading-screen');
         if (loader) {
-            setTimeout(() => {
-                loader.classList.add('hidden');
-                setTimeout(() => loader.remove(), 500);
-            }, 300);
+            loader.style.opacity = '0';
+            loader.style.pointerEvents = 'none';
+            setTimeout(function() { loader.remove(); }, 500);
         }
-    });
+    })();
     
     function toggleDrawer() {
         const drawer = document.getElementById('mobile-drawer');
@@ -969,5 +972,40 @@ body:not(.dark-mode) .back-to-top:hover {
     @livewireScripts
     {{-- Blade UI Kit Scripts --}}
     @bukScripts(true)
+
+    {{-- Alpine Theme Store (after Blade UI Kit's Alpine loads) --}}
+    <script>
+    document.addEventListener('alpine:initializing', () => {
+        Alpine.store('theme', {
+            dark: document.body.classList.contains('dark-mode'),
+            toggle() {
+                this.dark = !this.dark;
+                localStorage.setItem('darkMode', this.dark);
+                document.body.classList.toggle('dark-mode', this.dark);
+            }
+        });
+    });
+    </script>
+
+    <style>
+    nav.navbar, .navbar {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 200 !important;
+        background: var(--bg-card) !important;
+        backdrop-filter: blur(12px) !important;
+        border-bottom: 1px solid var(--border) !important;
+        padding: 22px 64px !important;
+    }
+    .page-content {
+        display: block !important;
+    }
+    body {
+        display: block !important;
+    }
+    </style>
 </body>
 </html>
