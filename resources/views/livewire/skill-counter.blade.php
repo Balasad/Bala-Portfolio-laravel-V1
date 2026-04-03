@@ -13,7 +13,7 @@
         <div 
             class="absolute inset-y-0 left-0 rounded-full"
             style="background: linear-gradient(90deg, var(--green), var(--green-light))"
-            :style="`width: {{ $level }}%`"
+            :style="'width: ' + '{{ $level }}%'"
         ></div>
     </div>
     

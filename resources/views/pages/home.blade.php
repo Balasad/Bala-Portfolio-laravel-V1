@@ -265,17 +265,23 @@ body:not(.dark-mode) .stats-container {
 .hero-meta {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     gap: 10px;
     margin: 20px 0;
+    min-width: 0;
 }
 
 .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     background: rgba(255,255,255,0.05);
     border: 1px solid var(--border);
     padding: 6px 15px;
     border-radius: 20px;
     font-size: 13px;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 body:not(.dark-mode) .meta-chip {
@@ -574,8 +580,15 @@ body:not(.dark-mode) .badge {
     }
     .hero-image img { width: 180px; }
 
-    .hero-meta { justify-content: center; gap: 8px; }
-    .meta-chip { font-size: 11px; padding: 5px 11px; }
+    .hero-meta { 
+        justify-content: center; 
+        gap: 8px; 
+        padding: 0 10px;
+    }
+    .meta-chip { 
+        font-size: 11px; 
+        padding: 5px 11px; 
+    }
 
     .hero-actions { justify-content: center; }
 
@@ -609,6 +622,19 @@ body:not(.dark-mode) .badge {
 ═══════════════════════════════════ */
 @media (max-width: 420px) {
     .hero-image img { width: 150px; }
+
+    .hero-meta {
+        justify-content: center;
+        gap: 6px;
+    }
+    .meta-chip {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+    .meta-chip svg {
+        width: 12px;
+        height: 12px;
+    }
 
     .arc-stage { height: 220px; }
     .arc-proj-grid { gap: 8px; padding: 0 10px; }

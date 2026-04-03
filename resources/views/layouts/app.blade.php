@@ -186,10 +186,6 @@ img {
     opacity: 1;
 }
 
-.sakura-container.active {
-    opacity: 1;
-}
-
 /* Sakura Particles - Optimized */
 .sakura {
     position: absolute;
@@ -322,6 +318,7 @@ body:not(.dark-mode) .navbar {
     border: none;
     padding: 4px;
     z-index: 210;
+    margin-left: auto;
 }
 
 .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -340,7 +337,7 @@ body:not(.dark-mode) .navbar {
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s;
-    margin-left: 16px;
+    margin-right: 16px;
 }
 
 .theme-toggle:hover {
@@ -392,6 +389,29 @@ body:not(.dark-mode) .navbar {
     transition: color 0.3s;
 }
 .mobile-drawer a:hover { color: var(--green-light); }
+
+.drawer-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text);
+    transition: all 0.3s;
+}
+
+.drawer-close:hover {
+    background: var(--green-dim);
+    border-color: var(--green);
+}
 
 .nav-hamburger span {
     display: block;
@@ -720,7 +740,8 @@ body:not(.dark-mode) .back-to-top:hover {
     </button>
 
     {{-- Mobile Drawer --}}
-    <div class="mobile-drawer" id="mobile-drawer">
+    <div class="mobile-drawer" id="mobile-drawer" @click.self="closeDrawer()">
+        <button class="drawer-close" onclick="closeDrawer()" aria-label="Close menu">✕</button>
         <a href="{{ route('home') }}#work"       onclick="closeDrawer()">Work</a>
         <a href="{{ route('home') }}#experience" onclick="closeDrawer()">Experience</a>
         <a href="{{ route('contact') }}"           onclick="closeDrawer()">Contact</a>
@@ -737,12 +758,6 @@ body:not(.dark-mode) .back-to-top:hover {
 
         <a href="{{ route('contact') }}" class="btn desktop-cta" style="display:block;">Get In Touch</a>
 
-        <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleDrawer()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
         <button 
             class="theme-toggle" 
             @click="$store.theme.toggle()"
@@ -750,6 +765,12 @@ body:not(.dark-mode) .back-to-top:hover {
         >
             <span x-show="$store.theme.dark" class="theme-icon">☀️</span>
             <span x-show="!$store.theme.dark" class="theme-icon">🌙</span>
+        </button>
+
+        <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleDrawer()">
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
     </nav>
 

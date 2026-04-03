@@ -33,7 +33,7 @@
             </span>
         </div>
         <div class="hero-actions">
-            <button class="btn">View My Work</button>
+            <a href="#portfolio" class="btn">View My Work</a>
             <a href="{{ asset('Bala_Saravanan_Resume.pdf') }}" download class="btn-outline">Download CV</a>
         </div>
     </div>
@@ -44,7 +44,7 @@
 </section>
 
 {{-- ── Portfolio ─────────────────────────────── --}}
-<section class="portfolio">
+<section class="portfolio" id="portfolio">
 
     <p class="section-label">Selected Works</p>
     <h2>Featured Projects</h2>
@@ -133,7 +133,7 @@
                         <span class="badge">Blender</span>
                         <span class="badge">Cycles</span>
                     </div>
-                    <a href="#" class="card-link">View ↗</a>
+                    <a href="javascript:void(0)" class="card-link" onclick="this.closest('.bento-card').querySelector('video,img').click()">View ↗</a>
                 </div>
                 <div class="bento-glow"></div>
             </div>
@@ -152,7 +152,7 @@
                         <span class="badge">Blender</span>
                         <span class="badge">EEVEE</span>
                     </div>
-                    <a href="#" class="card-link">View ↗</a>
+                    <a href="javascript:void(0)" class="card-link" onclick="this.closest('.bento-card').querySelector('video,img').click()">View ↗</a>
                 </div>
                 <div class="bento-glow"></div>
             </div>
@@ -245,7 +245,7 @@
                         <span class="badge">Illustrator</span>
                         <span class="badge">Print</span>
                     </div>
-                    <a href="#" class="card-link">View ↗</a>
+                    <a href="javascript:void(0)" class="card-link" onclick="this.closest('.bento-card').querySelector('video,img').click()">View ↗</a>
                 </div>
                 <div class="bento-glow"></div>
             </div>
@@ -259,7 +259,7 @@
                         <span class="badge">Illustrator</span>
                         <span class="badge">Branding</span>
                     </div>
-                    <a href="#" class="card-link">View ↗</a>
+                    <a href="javascript:void(0)" class="card-link" onclick="this.closest('.bento-card').querySelector('video,img').click()">View ↗</a>
                 </div>
                 <div class="bento-glow"></div>
             </div>
@@ -273,7 +273,7 @@
                         <span class="badge">Illustrator</span>
                         <span class="badge">Vector Art</span>
                     </div>
-                    <a href="#" class="card-link">View ↗</a>
+                    <a href="javascript:void(0)" class="card-link" onclick="this.closest('.bento-card').querySelector('video,img').click()">View ↗</a>
                 </div>
                 <div class="bento-glow"></div>
             </div>

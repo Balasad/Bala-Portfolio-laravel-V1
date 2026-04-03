@@ -46,7 +46,7 @@
 
     <button 
         type="submit" 
-        :disabled="$isSubmitting"
+        wire:disabled
         wire:loading.attr="disabled"
         class="px-6 py-2 rounded-lg font-medium transition-all disabled:opacity-50"
         style="background: var(--green); color: white"
