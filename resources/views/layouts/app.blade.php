@@ -767,8 +767,8 @@ body:not(.dark-mode) .back-to-top:hover {
             @click="$store.theme.toggle()"
             :aria-label="$store.theme.dark ? 'Switch to light mode' : 'Switch to dark mode'"
         >
-            <span x-show="$store.theme.dark" class="theme-icon">☀️</span>
-            <span x-show="!$store.theme.dark" class="theme-icon">🌙</span>
+            <span x-show="$store.theme.dark" x-cloak class="theme-icon">☀️</span>
+            <span x-show="!$store.theme.dark" x-cloak class="theme-icon">🌙</span>
         </button>
 
         <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleDrawer()">

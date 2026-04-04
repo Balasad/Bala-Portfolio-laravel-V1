@@ -1,26 +1,37 @@
 import './bootstrap';
 import AOS from 'aos';
 import GLightbox from 'glightbox';
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
 
 import 'aos/dist/aos.css';
 import 'glightbox/dist/css/glightbox.min.css';
 
-const isDarkMode = localStorage.getItem('darkMode') !== 'false';
+// ── Alpine.js Setup (must be before @bukScripts loads Alpine) ──
+import Alpine from 'alpinejs';
+window.Alpine = Alpine;
 
-document.body.classList.toggle('dark-mode', isDarkMode);
+// Register theme store BEFORE Alpine.start()
+Alpine.store('theme', {
+    dark: localStorage.getItem('darkMode') !== 'false',
 
-window.Echo = new Echo({
-    broadcaster: 'reverb',
-    key: import.meta.env.VITE_REVERB_APP_KEY,
-    wsHost: import.meta.env.VITE_REVERB_HOST,
-    wsPort: import.meta.env.VITE_REVERB_PORT ?? 80,
-    wssPort: import.meta.env.VITE_REVERB_PORT ?? 443,
-    forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
-    enabledTransports: ['ws', 'wss'],
+    init() {
+        // Sync body class with stored value on Alpine boot
+        document.body.classList.toggle('dark-mode', this.dark);
+    },
+
+    toggle() {
+        this.dark = !this.dark;
+        localStorage.setItem('darkMode', String(this.dark));
+        document.body.classList.toggle('dark-mode', this.dark);
+    }
 });
 
+Alpine.start();
+
+// ── Dark mode: apply immediately before render (prevents FOUC) ──
+const isDarkMode = localStorage.getItem('darkMode') !== 'false';
+document.body.classList.toggle('dark-mode', isDarkMode);
+
+// ── AOS + GLightbox ──
 document.addEventListener('DOMContentLoaded', () => {
     AOS.init({
         duration: 600,
