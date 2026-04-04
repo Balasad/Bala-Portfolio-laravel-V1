@@ -1,6 +1,6 @@
 {{-- resources/views/layouts/app.blade.php --}}
 <!DOCTYPE html>
-<html lang="en" x-data :class="{ 'dark-mode': $store.theme.dark }">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Balasaravanan S — UI/UX Designer & Laravel Developer based in Chennai. Designing intuitive interfaces and building enterprise-grade web applications.">
@@ -763,13 +763,12 @@ body:not(.dark-mode) .back-to-top:hover {
         <a href="{{ route('contact') }}" class="btn desktop-cta" style="display:block;">Get In Touch</a>
 
         <button 
-            class="theme-toggle" 
-            @click="$store.theme.toggle()"
-            :aria-label="$store.theme.dark ? 'Switch to light mode' : 'Switch to dark mode'"
-        >
-            <span x-show="$store.theme.dark" x-cloak class="theme-icon">☀️</span>
-            <span x-show="!$store.theme.dark" x-cloak class="theme-icon">🌙</span>
-        </button>
+    class="theme-toggle" 
+    id="theme-toggle-btn"
+    aria-label="Toggle theme"
+>
+    <span class="theme-icon" id="theme-icon"></span>
+</button>
 
         <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleDrawer()">
             <span></span>

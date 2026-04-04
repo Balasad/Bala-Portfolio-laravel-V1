@@ -5,47 +5,50 @@ import GLightbox from 'glightbox';
 import 'aos/dist/aos.css';
 import 'glightbox/dist/css/glightbox.min.css';
 
-// ── Alpine.js Setup (must be before @bukScripts loads Alpine) ──
-import Alpine from 'alpinejs';
-window.Alpine = Alpine;
-
-// Register theme store BEFORE Alpine.start()
-Alpine.store('theme', {
-    dark: localStorage.getItem('darkMode') !== 'false',
-
-    init() {
-        // Sync body class with stored value on Alpine boot
-        document.body.classList.toggle('dark-mode', this.dark);
-    },
-
-    toggle() {
-        this.dark = !this.dark;
-        localStorage.setItem('darkMode', String(this.dark));
-        document.body.classList.toggle('dark-mode', this.dark);
+// ── Theme Toggle (pure vanilla JS — no Alpine needed) ──
+(function () {
+    function getIsDark() {
+        return localStorage.getItem('darkMode') !== 'false';
     }
-});
 
-Alpine.start();
+    function applyTheme(isDark) {
+        document.body.classList.toggle('dark-mode', isDark);
+        const icon = document.getElementById('theme-icon');
+        const btn  = document.getElementById('theme-toggle-btn');
+        if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+        if (btn)  btn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    }
 
-// ── Dark mode: apply immediately before render (prevents FOUC) ──
-const isDarkMode = localStorage.getItem('darkMode') !== 'false';
-document.body.classList.toggle('dark-mode', isDarkMode);
+    // Apply immediately to prevent flash of wrong theme
+    applyTheme(getIsDark());
 
-// ── AOS + GLightbox ──
-document.addEventListener('DOMContentLoaded', () => {
-    AOS.init({
-        duration: 600,
-        easing: 'ease-out',
-        once: true,
-        offset: 50,
-        disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    // Wait for DOM then wire up the button
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('theme-toggle-btn');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const newDark = !getIsDark();
+                localStorage.setItem('darkMode', String(newDark));
+                applyTheme(newDark);
+            });
+        }
+
+        // ── AOS ──
+        AOS.init({
+            duration: 600,
+            easing: 'ease-out',
+            once: true,
+            offset: 50,
+            disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        });
+
+        // ── GLightbox ──
+        GLightbox({
+            touchNavigation: true,
+            loop: true,
+            autoplayVideos: false,
+            selector: '.glightbox',
+            skin: 'clean',
+        });
     });
-
-    GLightbox({
-        touchNavigation: true,
-        loop: true,
-        autoplayVideos: false,
-        selector: '.glightbox',
-        skin: 'clean',
-    });
-});
+})();
