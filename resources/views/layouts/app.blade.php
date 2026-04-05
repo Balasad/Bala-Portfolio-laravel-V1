@@ -3,8 +3,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {{-- Anti-FOUC: set theme class before CSS paints — prevents flash on Render/production --}}
+    <script>
+        (function(){
+            var d = localStorage.getItem('darkMode') !== 'false';
+            if(d) document.documentElement.classList.add('dark-mode');
+            document.addEventListener('DOMContentLoaded', function(){
+                document.body.classList.toggle('dark-mode', d);
+                var icon = document.getElementById('theme-icon');
+                if(icon) icon.textContent = d ? '☀️' : '🌙';
+                var btn = document.getElementById('theme-toggle-btn');
+                if(btn) btn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode');
+            });
+        })();
+    </script>
     <meta name="description" content="Balasaravanan S — UI/UX Designer & Laravel Developer based in Chennai. Designing intuitive interfaces and building enterprise-grade web applications.">
-    <meta name="theme-color" content="#020617">
+    <meta name="theme-color" content="#fef9f3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
     <title>Bala Portfolio</title>
@@ -979,7 +994,7 @@ body:not(.dark-mode) .back-to-top:hover {
             dark: document.body.classList.contains('dark-mode'),
             toggle() {
                 this.dark = !this.dark;
-                localStorage.setItem('darkMode', this.dark);
+                localStorage.setItem('darkMode', String(this.dark));
                 document.body.classList.toggle('dark-mode', this.dark);
             }
         });
