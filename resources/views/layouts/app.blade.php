@@ -6,15 +6,9 @@
     {{-- Anti-FOUC: set theme class before CSS paints — prevents flash on Render/production --}}
     <script>
         (function(){
+            /* Apply theme IMMEDIATELY to <html> — prevents flash on Render/production */
             var d = localStorage.getItem('darkMode') !== 'false';
-            if(d) document.documentElement.classList.add('dark-mode');
-            document.addEventListener('DOMContentLoaded', function(){
-                document.body.classList.toggle('dark-mode', d);
-                var icon = document.getElementById('theme-icon');
-                if(icon) icon.textContent = d ? '☀️' : '🌙';
-                var btn = document.getElementById('theme-toggle-btn');
-                if(btn) btn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode');
-            });
+            document.documentElement.classList.toggle('dark-mode', d);
         })();
     </script>
     <meta name="description" content="Balasaravanan S — UI/UX Designer & Laravel Developer based in Chennai. Designing intuitive interfaces and building enterprise-grade web applications.">
@@ -362,11 +356,17 @@ body:not(.dark-mode) .navbar {
 }
 
 .theme-icon {
-    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 20px;
+    height: 20px;
 }
+/* Sun shown in dark mode, Moon shown in light mode */
+.theme-icon-sun  { display: none; }
+.theme-icon-moon { display: flex; }
+body.dark-mode .theme-icon-sun  { display: flex; }
+body.dark-mode .theme-icon-moon { display: none; }
 
 /* Mobile drawer */
 .mobile-drawer {
@@ -724,8 +724,8 @@ body:not(.dark-mode) .back-to-top:hover {
     {{-- Set dark mode class immediately to prevent FOUC --}}
     <script>
         (function() {
-            const stored = localStorage.getItem('darkMode');
-            const isDark = stored !== 'false';
+            /* Sync dark-mode class from <html> (already set above) to <body> */
+            var isDark = document.documentElement.classList.contains('dark-mode');
             document.body.classList.toggle('dark-mode', isDark);
         })();
     </script>
@@ -777,13 +777,27 @@ body:not(.dark-mode) .back-to-top:hover {
 
         <a href="{{ route('contact') }}" class="btn desktop-cta" style="display:block;">Get In Touch</a>
 
-        <button 
-    class="theme-toggle" 
-    id="theme-toggle-btn"
-    aria-label="Toggle theme"
->
-    <span class="theme-icon" id="theme-icon"></span>
-</button>
+        {{-- Theme Toggle — Blade UI Kit heroicons, CSS-driven (no JS icon-swap needed) --}}
+        <button
+            class="theme-toggle"
+            id="theme-toggle-btn"
+            aria-label="Toggle theme"
+            onclick="(function(){
+                var isDark = !document.body.classList.contains('dark-mode');
+                document.body.classList.toggle('dark-mode', isDark);
+                document.documentElement.classList.toggle('dark-mode', isDark);
+                localStorage.setItem('darkMode', String(isDark));
+            })()"
+        >
+            {{-- Sun icon — visible in dark mode (click → go light) --}}
+            <span class="theme-icon theme-icon-sun">
+                <x-heroicon-o-sun class="w-5 h-5" />
+            </span>
+            {{-- Moon icon — visible in light mode (click → go dark) --}}
+            <span class="theme-icon theme-icon-moon">
+                <x-heroicon-o-moon class="w-5 h-5" />
+            </span>
+        </button>
 
         <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleDrawer()">
             <span></span>
@@ -987,19 +1001,8 @@ body:not(.dark-mode) .back-to-top:hover {
     {{-- Blade UI Kit Scripts --}}
     @bukScripts(true)
 
-    {{-- Alpine Theme Store (after Blade UI Kit's Alpine loads) --}}
-    <script>
-    document.addEventListener('alpine:initializing', () => {
-        Alpine.store('theme', {
-            dark: document.body.classList.contains('dark-mode'),
-            toggle() {
-                this.dark = !this.dark;
-                localStorage.setItem('darkMode', String(this.dark));
-                document.body.classList.toggle('dark-mode', this.dark);
-            }
-        });
-    });
-    </script>
+    {{-- NOTE: Theme is controlled by the pure-JS onclick on #theme-toggle-btn above.
+         Alpine store removed — it was conflicting with the button handler on production. --}}
 
     <style>
     nav.navbar, .navbar {
