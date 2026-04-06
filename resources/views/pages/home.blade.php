@@ -849,9 +849,9 @@ body:not(.dark-mode) .badge {
             icon: "{{ asset('icons/illustrator.png') }}",
             iconPink: "{{ asset('icons/illustrator-pink.png') }}",
             projects: [
-                { img: "{{ asset('images/illustrator/image_1.png') }}" },
-                { img: "{{ asset('images/illustrator/image_2.png') }}" },
-                { img: "{{ asset('images/illustrator/image_3.png') }}" },
+                { img: "{{ asset('images/illustrator/image_1.png') }}", link: "/project/erp-hris-module" },
+                { img: "{{ asset('images/illustrator/image_2.png') }}", link: "#" },
+                { img: "{{ asset('images/illustrator/image_3.png') }}", link: "#" },
             ]
         },
         {
@@ -860,9 +860,9 @@ body:not(.dark-mode) .badge {
             icon: "{{ asset('icons/photoshop.png') }}",
             iconPink: "{{ asset('icons/photoshop-pink.png') }}",
             projects: [
-                { img: "{{ asset('images/photoshop/poster_1.png') }}" },
-                { img: "{{ asset('images/photoshop/poster.png') }}" },
-                { img: "{{ asset('images/photoshop/poster.png') }}" },
+                { img: "{{ asset('images/photoshop/poster_1.png') }}", link: "/project/crm-system" },
+                { img: "{{ asset('images/photoshop/poster.png') }}", link: "#" },
+                { img: "{{ asset('images/photoshop/poster.png') }}", link: "#" },
             ]
         },
         {
@@ -871,9 +871,9 @@ body:not(.dark-mode) .badge {
             icon: "{{ asset('icons/blender.png') }}",
             iconPink: "{{ asset('icons/blender-pink.png') }}",
             projects: [
-                { img: "{{ asset('images/blender/watch.png') }}" },
-                { img: "{{ asset('images/blender/space.png') }}" },
-                { img: "{{ asset('images/blender/flower.png') }}" },
+                { img: "{{ asset('images/blender/watch.png') }}", link: "/project/luxury-watch-render" },
+                { img: "{{ asset('images/blender/space.png') }}", link: "#" },
+                { img: "{{ asset('images/blender/flower.png') }}", link: "#" },
             ]
         },
         {
@@ -882,9 +882,9 @@ body:not(.dark-mode) .badge {
             icon: "{{ asset('icons/aftereffects.png') }}",
             iconPink: "{{ asset('icons/after-effects-pink.png') }}",
             projects: [
-                { img: "{{ asset('images/3d.png') }}" },
-                { img: "{{ asset('images/3d.png') }}" },
-                { img: "{{ asset('images/3d.png') }}" },
+                { img: "{{ asset('images/3d.png') }}", link: "#" },
+                { img: "{{ asset('images/3d.png') }}", link: "#" },
+                { img: "{{ asset('images/3d.png') }}", link: "#" },
             ]
         },
         {
@@ -893,9 +893,9 @@ body:not(.dark-mode) .badge {
             icon: "{{ asset('icons/figma.png') }}",
             iconPink: "{{ asset('icons/figma-pink.png') }}",
             projects: [
-                { img: "{{ asset('images/figma/image_1.png') }}" },
-                { img: "{{ asset('images/figma/image_12.png') }}" },
-                { img: "{{ asset('images/figma/image_13.png') }}" },
+                { img: "{{ asset('images/figma/image_1.png') }}", link: "/project/crm-system" },
+                { img: "{{ asset('images/figma/image_12.png') }}", link: "/project/erp-hris-module" },
+                { img: "{{ asset('images/figma/image_13.png') }}", link: "#" },
             ]
         },
     ];
@@ -1058,6 +1058,11 @@ body:not(.dark-mode) .badge {
         grid.className = 'arc-proj-grid';
 
         t.projects.forEach(p => {
+            const link = document.createElement('a');
+            link.href = p.link || '#';
+            link.style.textDecoration = 'none';
+            link.style.display = 'block';
+
             const card = document.createElement('div');
             card.className = 'arc-proj-card';
             card.setAttribute('data-aos', 'zoom-in');
@@ -1071,7 +1076,8 @@ body:not(.dark-mode) .badge {
             img.className = 'glightbox';
             img.setAttribute('data-gallery', t.id);
             card.appendChild(img);
-            grid.appendChild(card);
+            link.appendChild(card);
+            grid.appendChild(link);
         });
 
         frag.appendChild(grid);

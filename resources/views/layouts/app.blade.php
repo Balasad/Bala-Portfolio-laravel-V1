@@ -11,12 +11,39 @@
             document.documentElement.classList.toggle('dark-mode', d);
         })();
     </script>
+    {{-- ── SEO & Social Meta ── --}}
     <meta name="description" content="Balasaravanan S — UI/UX Designer & Laravel Developer based in Chennai. Designing intuitive interfaces and building enterprise-grade web applications.">
+    <meta name="keywords" content="UI/UX Designer, Laravel Developer, Chennai, Web Developer, Livewire, Figma, Portfolio">
+    <meta name="author" content="Balasaravanan S">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    {{-- ── Open Graph (Facebook, LinkedIn, WhatsApp) ── --}}
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="{{ url()->current() }}">
+    <meta property="og:title"       content="@yield('og_title', 'Balasaravanan S — UI/UX Designer & Laravel Developer')">
+    <meta property="og:description" content="@yield('og_description', 'Designing intuitive interfaces and building enterprise-grade web applications. Based in Chennai.')">
+    <meta property="og:image"       content="@yield('og_image', asset('images/og-cover.png'))">
+    <meta property="og:image:width"  content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt"   content="Balasaravanan S — Portfolio">
+    <meta property="og:site_name"   content="Balasaravanan Portfolio">
+    <meta property="og:locale"      content="en_US">
+
+    {{-- ── Twitter / X Card ── --}}
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:site"        content="@Balasad_">
+    <meta name="twitter:creator"     content="@Balasad_">
+    <meta name="twitter:title"       content="@yield('og_title', 'Balasaravanan S — UI/UX Designer & Laravel Developer')">
+    <meta name="twitter:description" content="@yield('og_description', 'Designing intuitive interfaces and building enterprise-grade web applications. Based in Chennai.')">
+    <meta name="twitter:image"       content="@yield('og_image', asset('images/og-cover.png'))">
+    <meta name="twitter:image:alt"   content="Balasaravanan S — Portfolio">
+
     <meta name="theme-color" content="#fef9f3" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
-    <title>Bala Portfolio</title>
+    <title>@yield('title', 'Balasaravanan S — UI/UX Designer & Laravel Developer')</title>
     
     {{-- Preconnect for faster font load --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
