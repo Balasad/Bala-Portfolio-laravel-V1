@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('title', 'Balasaravanan S — UI/UX Designer & Laravel Developer')
+@section('og_title', 'Balasaravanan S — Portfolio')
+@section('og_description', 'UI/UX Designer and Full Stack Developer specializing in enterprise web applications with Laravel, Livewire, and modern design tools.')
+@section('og_image', asset('images/og-cover.png'))
+
 @section('content')
 
 {{-- ── Hero Section ── --}}

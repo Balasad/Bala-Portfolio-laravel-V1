@@ -44,6 +44,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
     <title>@yield('title', 'Balasaravanan S — UI/UX Designer & Laravel Developer')</title>
+
+    {{-- JSON-LD Structured Data for SEO --}}
+    {!! App\Services\SeoService::combinedSchema(
+        App\Services\SeoService::personSchema(),
+        App\Services\SeoService::organizationSchema()
+    ) !!}
+    @yield('json_ld')
     
     {{-- Preconnect for faster font load --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

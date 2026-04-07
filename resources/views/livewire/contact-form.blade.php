@@ -1,6 +1,16 @@
 <div
     x-data="{
         type: @entangle('enquiryType').live,
+        showSuccess: @entangle('showSuccess').live,
+        showError: @entangle('showError').live,
+        emailCopied: false,
+        copyEmail() {
+            const email = 'balasaravanan062@gmail.com';
+            navigator.clipboard.writeText(email).then(() => {
+                this.emailCopied = true;
+                setTimeout(() => this.emailCopied = false, 2000);
+            });
+        },
         types: [
             { value: 'job',       label: 'Job Opportunity', sub: 'Full-time / Part-time',
               icon: '<svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><rect x=&quot;2&quot; y=&quot;7&quot; width=&quot;20&quot; height=&quot;14&quot; rx=&quot;2&quot;/><path d=&quot;M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16&quot;/></svg>' },
@@ -12,6 +22,7 @@
               icon: '<svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z&quot;/></svg>' },
         ]
     }"
+    @success-message-shown.window="showSuccess = true; setTimeout(() => showSuccess = false, 3500);"
 >
 
 {{-- Honeypot --}}
@@ -20,18 +31,49 @@
     <input type="text" id="cf-hp" wire:model="honeypot" tabindex="-1" autocomplete="off">
 </div>
 
-{{-- Alerts --}}
-<div aria-live="polite" aria-atomic="true">
+{{-- Alerts with smooth animations --}}
+<div aria-live="polite" aria-atomic="true" class="cf-alerts-container">
     @if ($successMessage)
-        <div role="status" class="cf-alert cf-alert--success">
+        <div 
+            role="status" 
+            class="cf-alert cf-alert--success"
+            x-show="showSuccess"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-2"
+        >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>{{ $successMessage }}</span>
+            <div class="cf-alert-content">
+                <div class="cf-alert-title">Success! 🎉</div>
+                <div class="cf-alert-message">{{ $successMessage }}</div>
+            </div>
         </div>
     @endif
+    
     @if ($errorMessage)
-        <div role="alert" class="cf-alert cf-alert--error">
+        <div 
+            role="alert" 
+            class="cf-alert cf-alert--error"
+            x-show="showError"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-2"
+        >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <span>{{ $errorMessage }}</span>
+            <div class="cf-alert-content">
+                <div class="cf-alert-title">Message Failed</div>
+                <div class="cf-alert-message">{{ $errorMessage }}</div>
+                <button type="button" @click="copyEmail()" class="cf-copy-email-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                    <span x-text="emailCopied ? 'Copied!' : 'Copy Email'"></span>
+                </button>
+            </div>
         </div>
     @endif
 </div>
@@ -139,13 +181,70 @@
 </div>
 
 <style>
+/* ── Alerts Container ── */
+.cf-alerts-container { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    margin-bottom: 20px;
+    min-height: 0;
+}
+
 .cf-alert {
     display: flex; align-items: flex-start; gap: 12px;
     padding: 16px 20px; border-radius: 14px;
-    font-size: 14px; font-weight: 500; margin-bottom: 20px; line-height: 1.5;
+    font-size: 14px; font-weight: 500; line-height: 1.5;
 }
-.cf-alert--success { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.4); color: #4ade80; }
-.cf-alert--error   { background: rgba(239,68,68,0.10); border: 1px solid rgba(239,68,68,0.4); color: #f87171; }
+.cf-alert--success { 
+    background: rgba(34,197,94,0.12); 
+    border: 1px solid rgba(34,197,94,0.4); 
+    color: #4ade80; 
+}
+.cf-alert--error   { 
+    background: rgba(239,68,68,0.10); 
+    border: 1px solid rgba(239,68,68,0.4); 
+    color: #f87171;
+}
+
+.cf-alert-content {
+    flex: 1;
+}
+
+.cf-alert-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+.cf-alert-message {
+    opacity: 0.9;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.cf-copy-email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    color: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.cf-copy-email-btn:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.3);
+    transform: translateY(-1px);
+}
+.cf-copy-email-btn:active {
+    transform: translateY(0);
+}
 
 .cf-enquiry-types { margin-bottom: 20px; }
 .cf-section-label {
@@ -222,5 +321,10 @@ body:not(.dark-mode) .cf-submit { background: linear-gradient(135deg, var(--gree
 @media (max-width: 600px) {
     .cf-type-grid { grid-template-columns: repeat(2,1fr); }
     .cf-row { grid-template-columns: 1fr; }
+    .cf-copy-email-btn {
+        width: 100%;
+        justify-content: center;
+        margin-top: 12px;
+    }
 }
 </style>

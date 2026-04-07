@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Mail\ContactFormReceived;
 use Livewire\Component;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
@@ -24,6 +25,8 @@ class ContactForm extends Component
     public string $honeypot       = '';
     public string $successMessage = '';
     public string $errorMessage   = '';
+    public bool $showSuccess      = false;
+    public bool $showError        = false;
 
     protected function rules(): array
     {
@@ -53,6 +56,8 @@ class ContactForm extends Component
         if ($this->honeypot !== '') {
             $this->reset(['name', 'email', 'phone', 'company', 'jobTitle', 'budget', 'message', 'honeypot']);
             $this->successMessage = 'Thank you! Your message has been sent successfully.';
+            $this->showSuccess = true;
+            $this->dispatch('success-message-shown');
             return;
         }
 
@@ -63,12 +68,15 @@ class ContactForm extends Component
         if (RateLimiter::tooManyAttempts($key, 3)) {
             $seconds = RateLimiter::availableIn($key);
             $this->errorMessage = "Too many submissions. Please wait {$seconds} seconds.";
+            $this->showError = true;
             return;
         }
         RateLimiter::hit($key, 600);
 
         $this->errorMessage   = '';
         $this->successMessage = '';
+        $this->showError      = false;
+        $this->showSuccess    = false;
 
         // Capture before reset() wipes them
         $name        = $this->name;
@@ -155,12 +163,24 @@ class ContactForm extends Component
                      ->html($html);
             });
 
+            // Send confirmation email to user
+            Mail::send(new ContactFormReceived(
+                name: $name,
+                email: $email,
+                enquiryType: $enquiryType,
+                enquiryLabel: $enquiryLabel,
+                message: $message,
+            ));
+
             $this->successMessage = "Thanks {$name}! I'll get back to you shortly. 🚀";
+            $this->showSuccess = true;
             $this->reset(['name', 'email', 'phone', 'company', 'jobTitle', 'budget', 'message', 'honeypot']);
             $this->enquiryType = 'project';
+            $this->dispatch('success-message-shown');
 
         } catch (\Exception $e) {
-            $this->errorMessage = 'Something went wrong. Please email me directly at balasaravanan062@gmail.com';
+            $this->errorMessage = 'Oops! Something went wrong. Try emailing me directly:';
+            $this->showError = true;
             report($e);
         }
     }

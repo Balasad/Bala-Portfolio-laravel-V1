@@ -5,6 +5,13 @@
 @section('og_description', $project['summary'])
 @section('og_image', asset($project['cover']))
 
+@section('json_ld')
+    {!! App\Services\SeoService::combinedSchema(
+        App\Services\SeoService::projectSchema($project),
+        App\Services\SeoService::breadcrumbSchema($project['title'], $project['slug'])
+    ) !!}
+@endsection
+
 @section('content')
 
 <style>

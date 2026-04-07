@@ -1,6 +1,10 @@
 {{-- resources/views/pages/contact.blade.php --}}
 @extends('layouts.app')
 
+@section('title', 'Contact — Balasaravanan S')
+@section('og_title', 'Get in Touch — Balasaravanan S')
+@section('og_description', 'Available for projects, collaborations, and freelance work. Reach out via email or contact form.')
+
 @section('content')
 
 {{-- ── Contact Section ── --}}
