@@ -38,11 +38,11 @@
     <div class="hero-image anim-slide-right" data-aos="fade-left" data-aos-delay="200">
         <img 
             src="{{ asset('images/profile.png') }}" 
-            alt="Balasaravanan S — Profile"  
-            loading="eager" 
-            fetchpriority="high" 
+            alt="Balasaravanan S — Profile"
+            loading="eager"
+            fetchpriority="high"
             decoding="async"
-            
+            class="w-full h-auto"
         >
     </div>
 </section>
@@ -99,21 +99,51 @@
 
 {{-- ── Experience Section ── --}}
 <section class="experience" id="experience" data-aos="fade-up">
-    <p class="section-label" data-aos="fade-up" data-aos-delay="100">Professional Experience</p>
-    <h2 data-aos="fade-up" data-aos-delay="150">Currently Building</h2>
+    <p class="section-label" data-aos="fade-up" data-aos-delay="100">Professional Background</p>
+    <h2 data-aos="fade-up" data-aos-delay="150">Full Stack Laravel Developer</h2>
 
     <div class="exp-timeline">
         <div class="exp-card active reveal-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="exp-badge">PRIMARY</div>
             <div class="exp-glow"></div>
             <div class="exp-header">
                 <div class="exp-title">
-                    <h3>Laravel Developer (ERP Specialist)</h3>
-                    <span class="company">Enterprise Solutions</span>
+                    <h3>E-commerce Platform — Current Project</h3>
+                    <span class="company">Build from Scratch | 2026</span>
                 </div>
-                <div class="exp-date">March 2025 — Present</div>
             </div>
             <div class="exp-body">
-                <p>Building comprehensive <strong>Enterprise Resource Planning</strong> systems using <strong>Laravel 12</strong> and <strong>PHP 8.2</strong> — architecting scalable solutions for businesses of all sizes.</p>
+                <p>Building a modern <strong>full-featured e-commerce platform</strong> from scratch using <strong>Laravel 12</strong>, <strong>Filament Admin</strong>, and reactive <strong>Livewire components</strong> — combining powerful backend administration with intuitive user experiences.</p>
+                <ul>
+                    <li>Architected <strong>admin dashboard</strong> with <strong>Filament</strong> for product management, order processing, inventory tracking, and analytics.</li>
+                    <li>Implemented <strong>third-party authentication</strong> via <strong>Socialite</strong> (Google, GitHub, social login integrations).</li>
+                    <li>Built reactive <strong>shopping cart & checkout</strong> with <strong>Livewire</strong> components for real-time interactions.</li>
+                    <li>Configured automated <strong>backup strategy</strong> with <strong>Spatie Backup</strong> for data security and disaster recovery.</li>
+                    <li>Develop responsive frontend with <strong>Alpine.js</strong> for enhanced interactivity and <strong>Tailwind CSS</strong> for modern design.</li>
+                </ul>
+                <div class="badge-row">
+                    <span class="badge">Laravel 12</span>
+                    <span class="badge">Filament</span>
+                    <span class="badge">Livewire</span>
+                    <span class="badge">Socialite</span>
+                    <span class="badge">Alpine.js</span>
+                    <span class="badge">Tailwind CSS</span>
+                    <span class="badge">Spatie Backup</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="exp-card reveal-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="exp-badge">PARALLEL</div>
+            <div class="exp-glow"></div>
+            <div class="exp-header">
+                <div class="exp-title">
+                    <h3>Enterprise ERP System — Active Development</h3>
+                    <span class="company">Multi-tenant Architecture | March 2025 — Present</span>
+                </div>
+            </div>
+            <div class="exp-body">
+                <p>Building comprehensive <strong>Enterprise Resource Planning</strong> systems using <strong>Laravel 12</strong> and <strong>PHP 8.2</strong> — architecting scalable solutions for businesses of all sizes with proven stability and performance.</p>
                 <ul>
                     <li>Developed <strong>17 integrated modules</strong>: CRM Pipeline, HR Management, Inventory, Finance, Support Tickets, and Vendor Management.</li>
                     <li>Built drag-and-drop <strong>Kanban pipeline</strong> for sales automation with real-time stage updates.</li>
@@ -127,6 +157,35 @@
                     <span class="badge">CRM</span>
                     <span class="badge">Multi-tenancy</span>
                     <span class="badge">REST API</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="exp-card reveal-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="exp-badge">PAST PROJECT</div>
+            <div class="exp-glow"></div>
+            <div class="exp-header">
+                <div class="exp-title">
+                    <h3>Design & Content Specialist</h3>
+                    <span class="company">TeraMed Academy Platform | Digital Publishing</span>
+                </div>
+            </div>
+            <div class="exp-body">
+                <p>Created comprehensive UI/UX designs and visual assets while managing digital content workflows for educational platform publishing.</p>
+                <ul>
+                    <li>Designed complete <strong>UI/UX in Figma</strong>, creating user-centered interface prototypes and design systems.</li>
+                    <li>Developed custom icons and visual assets using <strong>Photoshop & Illustrator</strong> for brand consistency.</li>
+                    <li>Converted PDF educational materials to structured Word documents using <strong>ABBYY FineReader OCR</strong>.</li>
+                    <li>Performed quality assurance comparing OCR output against PDFs; prepared content for <strong>XML & EPUB publishing</strong> workflows.</li>
+                </ul>
+                <div class="badge-row">
+                    <span class="badge">Figma</span>
+                    <span class="badge">Photoshop</span>
+                    <span class="badge">Illustrator</span>
+                    <span class="badge">ABBYY FineReader</span>
+                    <span class="badge">OCR</span>
+                    <span class="badge">XML</span>
+                    <span class="badge">EPUB</span>
                 </div>
             </div>
         </div>
@@ -473,6 +532,26 @@ body:not(.dark-mode) .exp-card {
     background: radial-gradient(circle, var(--green-dim), transparent 70%);
     opacity: 0.5;
     pointer-events: none;
+}
+
+.exp-badge {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    background: var(--green);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    z-index: 5;
+}
+
+.exp-card:nth-child(3) .exp-badge {
+    background: rgba(100, 116, 139, 0.8);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .exp-header {

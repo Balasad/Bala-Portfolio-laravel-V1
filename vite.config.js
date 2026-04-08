@@ -39,9 +39,20 @@ export default defineConfig({
                     'glightbox': ['glightbox'],
                 },
             },
+            // Image optimization - inline small images, optimize large ones
+            assetFileNames: (assetInfo) => {
+                if (assetInfo.name.endsWith('.png') || assetInfo.name.endsWith('.jpg') || assetInfo.name.endsWith('.jpeg')) {
+                    return 'images/[name]-[hash][extname]';
+                }
+                return 'assets/[name]-[hash][extname]';
+            },
         },
         cssMinify: true,
         reportCompressedSize: true,
         chunkSizeWarningLimit: 500,
+        // Image optimization options
+        assetsInlineLimit: 4096, // Inline images smaller than 4KB
     },
+    // Asset handling
+    assetsInclude: ['**/*.webp', '**/*.avif'],
 });

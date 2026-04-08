@@ -535,7 +535,11 @@ body:not(.dark-mode) .proj-next {
 
     {{-- Cover image --}}
     <div class="proj-cover">
-        <img src="{{ asset($project['cover']) }}" alt="{{ $project['title'] }} cover" loading="eager">
+        <x-lazy-image 
+            src="{{ asset($project['cover']) }}" 
+            alt="{{ $project['title'] }} cover"
+            class="w-full h-auto rounded-lg"
+        />
     </div>
 
     {{-- Body: content + sidebar --}}
@@ -570,7 +574,13 @@ body:not(.dark-mode) .proj-next {
                 <h3>Screenshots</h3>
                 <div class="gallery-grid">
                     @foreach($project['gallery'] as $img)
-                        <img src="{{ asset($img) }}" alt="{{ $project['title'] }} screenshot" loading="lazy" onclick="openLightbox(this.src)">
+                        <div onclick="openLightbox('{{ asset($img) }}')" class="cursor-pointer">
+                            <x-lazy-image 
+                                src="{{ asset($img) }}" 
+                                alt="{{ $project['title'] }} screenshot"
+                                class="w-full h-auto rounded-lg hover:opacity-90 transition-opacity"
+                            />
+                        </div>
                     @endforeach
                 </div>
             </div>

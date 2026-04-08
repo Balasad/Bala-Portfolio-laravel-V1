@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Mail\ContactFormReceived;
 use Livewire\Component;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
@@ -164,13 +163,13 @@ class ContactForm extends Component
             });
 
             // Send confirmation email to user
-            Mail::send(new ContactFormReceived(
-                name: $name,
-                email: $email,
-                enquiryType: $enquiryType,
-                enquiryLabel: $enquiryLabel,
-                message: $message,
-            ));
+            Mail::raw(
+                "Thank you for reaching out, {$name}!\n\nWe have received your {$enquiryLabel} enquiry and will get back to you within 24 hours.\n\nBest regards,\nBalasaravanan S",
+                function ($mail) use ($name, $email, $enquiryLabel) {
+                    $mail->to($email, $name)
+                         ->subject("Thank you for reaching out!");
+                }
+            );
 
             $this->successMessage = "Thanks {$name}! I'll get back to you shortly. 🚀";
             $this->showSuccess = true;
