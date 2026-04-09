@@ -100,11 +100,11 @@
 {{-- ── Experience Section ── --}}
 <section class="experience" id="experience" data-aos="fade-up">
     <p class="section-label" data-aos="fade-up" data-aos-delay="100">Professional Background</p>
-    <h2 data-aos="fade-up" data-aos-delay="150">Full Stack Laravel Developer</h2>
+    <h2 data-aos="fade-up" data-aos-delay="150">UI/UX Designer & Full Stack Developer</h2>
 
     <div class="exp-timeline">
-        <div class="exp-card active reveal-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="exp-badge">PRIMARY</div>
+        <div class="exp-card reveal-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="exp-badge">CURRENT</div>
             <div class="exp-glow"></div>
             <div class="exp-header">
                 <div class="exp-title">
@@ -133,7 +133,7 @@
             </div>
         </div>
 
-        <div class="exp-card reveal-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="exp-card reveal-card" data-aos="fade-up" data-aos-delay="400">
             <div class="exp-badge">PARALLEL</div>
             <div class="exp-glow"></div>
             <div class="exp-header">
@@ -161,17 +161,17 @@
             </div>
         </div>
 
-        <div class="exp-card reveal-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="exp-badge">PAST PROJECT</div>
+        <div class="exp-card active reveal-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="exp-badge">PRIMARY</div>
             <div class="exp-glow"></div>
             <div class="exp-header">
                 <div class="exp-title">
-                    <h3>Design & Content Specialist</h3>
+                    <h3>UI/UX Designer & Digital Specialist</h3>
                     <span class="company">TeraMed Academy Platform | Digital Publishing</span>
                 </div>
             </div>
             <div class="exp-body">
-                <p>Created comprehensive UI/UX designs and visual assets while managing digital content workflows for educational platform publishing.</p>
+                <p>Designed intuitive, user-centered interfaces and created comprehensive visual systems while managing digital publishing workflows for major educational platforms.</p>
                 <ul>
                     <li>Designed complete <strong>UI/UX in Figma</strong>, creating user-centered interface prototypes and design systems.</li>
                     <li>Developed custom icons and visual assets using <strong>Photoshop & Illustrator</strong> for brand consistency.</li>
