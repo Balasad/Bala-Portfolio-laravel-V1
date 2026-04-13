@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Route;
 // Option B: use a dedicated ProjectsService class
 // This file uses a local helper for simplicity — move to a Service when you add a DB.
 
-function getProjects(): array
-{
-    return require app_path('Data/projects.php');
+if (! function_exists('getProjects')) {
+    function getProjects(): array
+    {
+        return require app_path('Data/projects.php');
+    }
 }
 
 // ── Static pages ───────────────────────────────────────────────────────────
